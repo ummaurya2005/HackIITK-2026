@@ -1,0 +1,10 @@
+torch
+librosa
+numpy
+scikit-learn
+joblib
+tqdm
+flask
+#venv\Scripts\Activate.ps1
+torchvision
+Pillow

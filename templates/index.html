@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multimodal Prompt Injection Detector</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+
+            /* Deepfake-style background */
+            background-image: url("https://th.bing.com/th/id/OIP.3_OOdgVeblvM-bMFVHnIGwHaFE?w=243&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.55);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background: lightblue;
+            padding: 25px 30px;
+            border-radius: 12px;
+            width: 560px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h2, h3, h4 {
+            color: #222;
+            margin-top: 0;
+        }
+
+        .result {
+            font-size: 17px;
+            margin-top: 15px;
+        }
+
+        .metric {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+
+        .allow {
+            color: green;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .block {
+            color: red;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 8px 14px;
+            border: none;
+            background: #0066cc;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #004999;
+        }
+
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="overlay">
+    <div class="box">
+
+        <!-- AUDIO SECTION -->
+        <h2>🎧 Audio Prompt Injection Detection</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="audio" required>
+            <br><br>
+            <button type="submit">Analyze Audio</button>
+        </form>
+
+        {% if audio_result %}
+        <div class="result">
+            <strong>Prediction:</strong> {{ audio_result.label }} <br>
+            <strong>Confidence:</strong> {{ audio_result.confidence }}% <br><br>
+
+            {% if audio_result.action == "ALLOW" %}
+                <span class="allow">🟢 Action: ALLOW (Safe)</span>
+            {% elif audio_result.action == "WARNING" %}
+                <span class="warning">🟠 Action: WARNING (Review)</span>
+            {% elif audio_result.action == "BLOCK" %}
+                <span class="block">🔴 Action: BLOCKED</span>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <hr>
+
+        <!-- IMAGE SECTION -->
+        <h3>🖼️ Image Adversarial Detection</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <br><br>
+            <button type="submit">Analyze Image</button>
+        </form>
+
+        {% if image_result %}
+        <div class="result">
+            <strong>Prediction:</strong> {{ image_result.label }} <br>
+            <strong>Confidence:</strong> {{ image_result.confidence }}% <br><br>
+
+            {% if image_result.action == "ALLOW" %}
+                <span class="allow">🟢 Action: ALLOW (Safe)</span>
+            {% elif image_result.action == "WARNING" %}
+                <span class="warning">🟠 Action: WARNING (Review)</span>
+            {% elif image_result.action == "BLOCK" %}
+                <span class="block">🔴 Action: BLOCKED</span>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <hr>
+
+        <!-- METRICS SECTION -->
+        <h3>📊 Model Performance (Validation)</h3>
+
+        <h4>🎧 Audio Model</h4>
+        <div class="metric">Precision: {{ audio_metrics.precision }}</div>
+        <div class="metric">Recall: {{ audio_metrics.recall }}</div>
+        <div class="metric">F1 Score: {{ audio_metrics.f1 }}</div>
+        <div class="metric">ROC–AUC: {{ audio_metrics.roc_auc }}</div>
+
+        <br>
+
+        <h4>🖼️ Image Model</h4>
+        <div class="metric">Precision: {{ image_metrics.precision }}</div>
+        <div class="metric">Recall: {{ image_metrics.recall }}</div>
+        <div class="metric">F1 Score: {{ image_metrics.f1 }}</div>
+        <div class="metric">ROC–AUC: {{ image_metrics.roc_auc }}</div>
+
+    </div>
+</div>
+
+</body>
+</html>
