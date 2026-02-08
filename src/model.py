@@ -5,17 +5,17 @@ class AudioClassifier(nn.Module):
         super().__init__()
 
         self.net = nn.Sequential(
-            nn.Linear(input_dim, 256),      # net.0
-            nn.BatchNorm1d(256),            # net.1
-            nn.ReLU(),                      # net.2
-            nn.Dropout(0.4),                # net.3
+            nn.Linear(input_dim, 256),      
+            nn.BatchNorm1d(256),            
+            nn.ReLU(),                      
+            nn.Dropout(0.4),                
 
-            nn.Linear(256, 128),             # net.4
-            nn.BatchNorm1d(128),             # net.5
-            nn.ReLU(),                      # net.6
-            nn.Dropout(0.3),                # net.7
+            nn.Linear(256, 128),            
+            nn.BatchNorm1d(128),             
+            nn.ReLU(),                      
+            nn.Dropout(0.3),                
 
-            nn.Linear(128, num_classes)     # net.8
+            nn.Linear(128, num_classes)     
         )
 
     def forward(self, x):
