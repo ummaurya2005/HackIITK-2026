@@ -69,9 +69,9 @@ Metrics are computed on labeled validation datasets (standard ML practice).
 - ROC–AUC: **0.67**
 
 ### 🖼️ Image Model
-- Precision: **0.50**
-- Recall: **0.47**
-- F1-score: **0.48**
+- Precision: **0.71**
+- Recall: **0.57**
+- F1-score: **0.58**
 - ROC–AUC: **0.54**
 
 Metrics are reported **per modality** for transparent performance analysis.
@@ -198,3 +198,4 @@ pip install -r requirements.txt
 
 # Run the application
 python app.py
+
