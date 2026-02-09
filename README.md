@@ -127,37 +127,8 @@ Each modality is processed **independently**, ensuring robustness, modularity, a
 
 ---
 
-## 🛡️ Risk-Aware Decision Engine
-
-Instead of simple classification, the system applies confidence-based thresholds:
-
-| Confidence Level | Action | Meaning |
-|------------------|--------|--------|
-| High malicious confidence | 🔴 BLOCK | Reject input |
-| Medium confidence | 🟠 WARNING | Human review recommended |
-| High benign confidence | 🟢 ALLOW | Safe to proceed |
-
-This reduces false positives while maintaining strong security guarantees.
 
 ---
-
-## 📊 Model Evaluation (Offline Validation)
-
-Metrics are computed on labeled validation datasets (standard ML practice).
-
-### 🎧 Audio Model
-- Precision: **0.64**
-- Recall: **0.61**
-- F1-score: **0.62**
-- ROC–AUC: **0.67**
-
-### 🖼️ Image Model
-- Precision: **0.50**
-- Recall: **0.47**
-- F1-score: **0.48**
-- ROC–AUC: **0.54**
-
-Metrics are reported **per modality** for transparent performance analysis.
 
 ---
 
@@ -198,4 +169,5 @@ pip install -r requirements.txt
 
 # Run the application
 python app.py
+
 
